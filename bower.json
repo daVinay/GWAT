@@ -1,0 +1,7 @@
+{
+  "name": "gwat",
+  "devDependencies": {
+    "angular": "1.4.3",
+    "angular-route": "~1.2.x"
+  }
+}

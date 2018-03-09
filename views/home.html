@@ -1,0 +1,65 @@
+<div class="container" data-ng-controller="HomeController" ng-init="getPostSubmission()">
+
+  <div class="row">
+    <button type="button" class="btn btn-primary pull-left" data-toggle="modal" data-target="#myModal">Submit new post</button>  
+  </div><br>
+
+  <div class="modal fade" id="myModal" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+      <form name="myForm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close"  aria-label="Close"><span aria-hidden="true" ng-click="cancel()">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Create New Post</h4>
+        </div>
+        <div class="modal-body">
+          
+            <div class="list-group list-group-sm">
+                <div class="list-group-item">
+                    <input type="text" placeholder="Title" class="form-control no-border" name="title" ng-model="title" required>
+                    <span class="alert alert-error" ng-show="isSubmitted && myForm.title.$error.required">Title can't be blank</span>
+                </div>
+                <div class="list-group-item">
+                    <textarea placeholder="Enter Body" class="form-control no-border" name="body" ng-model="body" maxlength="1000" required></textarea>
+                     <span class="alert alert-error" ng-show="isSubmitted && myForm.body.$error.required">Body can't be blank</span>
+                </div>
+                <div class="list-group-item" >
+                   <select class="" name="category" ng-model="category" required style="color: grey;border-color:grey">
+                    <option value="">Select Category</option>
+                      <option value="Lifestyle">Lifestyle</option>
+                      <option value="Travel">Travel</option>
+                      <option value="Video">Video</option>
+                    </select>
+                    <span class="alert alert-error" ng-show="isSubmitted && myForm.category.$error.required">Category can't be blank</span>
+                </div>
+                <div class="list-group-item">
+                    <input type="text" placeholder="Enter Url" class="form-control no-border" name="subjectUrl" ng-model="subjectUrl">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+          <button type="button" class="btn btn-success" ng-disabled="isDisabledSave" ng-click="create()">Save</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+    
+     <div class="col-md-12 well" ng-repeat="x in submissionData">
+        <h3>{{x.title}}</h3>
+        <!-- https://html.com -->
+        <iframe ng-if="x.subjectUrl" ng-src="{{x.subjectUrl | trustUrl}}" style="border:none;"></iframe>
+        <p>{{x.body}}</p>
+    </div>
+
+      
+     <div ng-show="isPagination" data-pagination="todos" data-num-pages="numPages()" 
+      data-current-page="currentPage" data-max-size="maxSize"  
+      data-boundary-links="true"></div>
+
+
+  <div class="row" ng-if="!submissionData.length">
+    <div class="col-md-6 well">No any Data...</div>
+  </div>
+</div>
